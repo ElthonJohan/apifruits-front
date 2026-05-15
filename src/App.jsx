@@ -9,7 +9,7 @@ function App() {
   const searchFood = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/food/${food}`
+        `https://apifruits-back.onrender.com/food/${food}`
       );
 
       setData(response.data);
@@ -23,7 +23,7 @@ function App() {
   try {
 
     const response = await axios.get(
-      "http://localhost:3000/foods"
+      "https://apifruits-back.onrender.com/foods"
     );
 
     setFoods(response.data);
@@ -115,7 +115,25 @@ function App() {
         <li
           key={food.id}
           className="border p-2 rounded cursor-pointer hover:bg-gray-100"
-          onClick={() => setFood(food.name)}
+          onClick={async () => {
+
+  setFood(food.name);
+
+  try {
+
+    const response = await axios.get(
+      `https://apifruits-back.onrender.com/food/${food.name}`
+    );
+
+    setData(response.data);
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+}}
         >
           {food.name}
         </li>
